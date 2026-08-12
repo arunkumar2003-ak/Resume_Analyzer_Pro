@@ -7,6 +7,7 @@ class Resume(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
-    filename = Column(String(255), nullable=False)
+    filename = Column(String(255), nullable=False)          # internal stored filename (unique on disk)
+    original_filename = Column(String(255), nullable=True)  # actual name user uploaded, e.g. "My_Resume.pdf"
     extracted_text = Column(Text, nullable=True)
     uploaded_at = Column(DateTime(timezone=True), server_default=func.now())

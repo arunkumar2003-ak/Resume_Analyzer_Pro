@@ -28,7 +28,12 @@ async def upload_resume(
     saved_filename, file_path = resume_service.save_pdf(contents, file.filename, current_user.id)
     extracted_text = resume_service.extract_text(file_path)
 
-    resume = Resume(user_id=current_user.id, filename=saved_filename, extracted_text=extracted_text)
+    resume = Resume(
+        user_id=current_user.id,
+        filename=saved_filename,
+        original_filename=file.filename,
+        extracted_text=extracted_text,
+    )
     db.add(resume)
     db.commit()
     db.refresh(resume)
@@ -54,6 +59,7 @@ def get_history(db: Session = Depends(get_db), current_user = Depends(get_curren
         results.append(ResumeOut(
             id=r.id,
             filename=r.filename,
+            original_filename=r.original_filename,
             uploaded_at=r.uploaded_at,
             score=latest.score if latest else None,
             ats_score=latest.ats_score if latest else None,

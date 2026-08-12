@@ -5,6 +5,7 @@ from typing import Optional
 class ResumeOut(BaseModel):
     id: int
     filename: str
+    original_filename: Optional[str] = None
     uploaded_at: datetime
     score: Optional[int] = None
     ats_score: Optional[int] = None

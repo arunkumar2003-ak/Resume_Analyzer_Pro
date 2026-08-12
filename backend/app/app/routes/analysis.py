@@ -85,7 +85,7 @@ def download_report(resume_id: int, db: Session = Depends(get_db), current_user 
     lines = [
         "AI RESUME ANALYZER PRO - ANALYSIS REPORT",
         "=" * 50,
-        f"Resume: {resume.filename}",
+        f"Resume: {resume.original_filename or resume.filename}",
         f"Analyzed on: {analysis.created_at}",
         "",
         f"Resume Score: {feedback.get('resume_score')}/100",
